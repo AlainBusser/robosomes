@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Robosomes</title>
+<style>
+    .laby {border: 1px solid black; border-collapse: collapse;}
+    .laby td {width: 32px;height: 32px; border: 1px solid black;text-align:center; font-size: 140%;color:blue;}
+    .laby .v {background-color: lightyellow;}
+    .laby .X {background-color: brown;}
+    .laby .S {background-color: lightgreen;}
+    code {background-color: black; color: lightgreen; font-family: Arial;}
+</style>
+<!--◀▲▶▼-->
+</head>
+<body>
+<h1 title="© Jean-Paul Sartre">L'enfer, c'est les autres</h1>
+<h2>Robot numéro 1</h2>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+<p>Le programme <code>AAA</code> permet au robot de 
+sortir du labyrinthe&nbsp;:</p>
+<ol>
+<li>Après le premier <code>A</code>&nbsp;
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après le second <code>A</code>&nbsp;
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S">▼<td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après le troisième <code>A</code>&nbsp;
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+</ol>
+<h2>Robot numéro 2</h2>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+<p>Pour faire sortir ce robot ce n'est plus le programme 
+<code>AAA</code> mais le programme <code>AGAA</code> 
+qui convient&nbsp;:</p>
+<ol>
+<li>Après le <code>A</code> du début&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après le <code>G</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après le second <code>A</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S">▼<td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après le dernier <code>A</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+</ol>
+<h2>Les deux robots en même temps</h2>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+<p>Ni <code>AAA</code> ni <code>AGAA</code> ne permettent 
+de faire sortir les robots. En effet dans l'état 
+actuel <code>A</code> ne donne rien à cause du risque de blocage. 
+Donc après <code>AAA</code> la situation est exactement 
+la même. </p>
+<p><code>AGAA</code> a par contre le même effet que 
+<code>GAA</code>&nbsp;:</p>
+<ol>
+<li>Après <code>AG</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▶</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>AGA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▶</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>AGAA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▶</td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+</ol>
+<p>Aucun des deux robots n'est sorti&nbsp;!</p>
+<h2>La solution</h2>
+<p>Pour rappel, la position de départ&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+<ol>
+<li>Après <code>D</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▲</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v">▲</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAG</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v">◀</td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGAA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S">▼<td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGAAA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGAAAG</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGAAAGA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGAAAGAA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S">▼<td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+<li>Après <code>DAGAAAGAAA</code>&nbsp;:
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></tr>
+    <tr><td class="X"><td class="S"><td class="X"><td class="X"></td><td class="X"></tr>
+</table>
+</li>
+</ol>
+<p>La solution est donc <code>DAGAAAGAAA</code>. 
+C'est un mot de 10 lettres (ou un programme de 10 
+instructions).</p>
+<h3>Y a-t-il un programme plus court permettant de gagner 
+ce jeu&nbsp;?</h3>
+
+
+
+
+
+
+
+
+</body>
+</html>

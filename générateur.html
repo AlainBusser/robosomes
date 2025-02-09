@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Robosomes</title>
+<style>
+    .laby {border: 1px solid black; border-collapse: collapse;}
+    .laby td {width: 32px;height: 32px; border: 1px solid black;text-align:center; font-size: 120%;color:blue;}
+    .laby .v {background-color: lightyellow;}
+    .laby .X {background-color: brown;}
+    .laby .S {background-color: lightgreen;}
+    code {background-color: black; color: lightgreen; font-family: Arial;}
+    textarea { background-color: black; color: lightgreen; width : 320px; height: 240px;}
+</style>
+<!--◀▲▶▼-->
+</head>
+<body>
+<h1>Exemple</h1>
+<table id="plateau" class="laby" border="1"></table>
+<p>Entrée pour une nouvelle ligne, 0 pour une case vide, 
+1 à 4 pour un robot, 5 pour un mur, 6 pour la sortie.</p>
+<textarea id="saisie" onkeyup="maj()"></textarea>
+<p>Ci-dessous un tableau <code>JavaScript</code> décrivant 
+le niveau créé&nbsp;:</p>
+<textarea id="sortie"></textarea>
+<script>
+P = []
+const fleches = ["","▶","▲","◀","▼","",""]
+let rendu = function(tab) {
+    let t = document.getElementById("plateau")
+    t.innerHTML=""
+    for (let ligne of tab.reverse()) {
+        trow = t.insertRow(0)
+        for (let elt of ligne) {
+            tcell = trow.insertCell()
+            texte = document.createTextNode(fleches[elt])
+            if (elt<=4) {
+                tcell.className = "v"
+            }
+            else {
+                if (elt==5) {
+                    tcell.className = "X"
+                }
+                else {
+                    tcell.className = "S"
+                }
+            }
+            tcell.appendChild(texte)
+        }
+    }
+}
+
+rendu(P)
+let maj = function() {
+    let world = document.getElementById("saisie").value
+    let M = [[]]
+    let ligne = 0
+    for (let n=0 ; n<world.length ; n++) {
+        if (world.charAt(n)=="\n") {
+            ligne += 1
+            M.push([])
+        }
+        else {
+            M[ligne].push(parseInt(world.charAt(n)))
+        }
+    }
+    let sortie = document.getElementById("sortie")
+    sortie.value = "[\n"
+    for (ligne of M) {sortie.value += "["+ligne + "],\n"
+    } 
+    sortie.value += "]"
+    rendu(M)
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Robosomes</title>
+<style>
+    .laby {border: 1px solid black; border-collapse: collapse;}
+    .laby td {width: 32px;height: 32px; border: 1px solid black;text-align:center; font-size: 120%;color:blue;}
+    .laby .v {background-color: lightyellow;}
+    .laby .X {background-color: brown;}
+    .laby .S {background-color: lightgreen;}
+    code {background-color: black; color: lightgreen; font-family: Arial;}
+    #saisie {background-color: black; color: lightyellow; width: 40em; }
+</style>
+<!--◀▲▶▼-->
+</head>
+<body>
+<h1>Automate</h1>
+<p>Voici un petit (micro) jeu de <em>robosomes</em>&nbsp;:</p>
+<table id="plateau" class="laby" border="1"></table>
+<p>Entrer ci-dessus le programme à appliquer aux robots 
+(suite de lettres <code>A</code>, <code>D</code> ou 
+<code>G</code>)&nbsp;:</p>
+<input id="saisie" onkeyup="maj()"></input>
+<script>
+const M = [
+[5,5,5],
+[5,2,5],
+[5,6,5]
+]
+
+P = M
+const fleches = ["","▶","▲","◀","▼","",""]
+const dx = [0,1,0,-1,0]
+const dy = [0,0,1,0,-1]
+let rendu = function(tab) {
+    let t = document.getElementById("plateau")
+    t.innerHTML=""
+    for (let ligne of tab.reverse()) {
+        trow = t.insertRow(0)
+        for (let elt of ligne) {
+            tcell = trow.insertCell()
+            texte = document.createTextNode(fleches[elt])
+            if (elt<=4) {
+                tcell.className = "v"
+            }
+            else {
+                if (elt==5) {
+                    tcell.className = "X"
+                }
+                else {
+                    tcell.className = "S"
+                }
+            }
+            tcell.appendChild(texte)
+        }
+    }
+}
+
+rendu(P)
+let cleanup = function(){
+    texte = document.getElementById("saisie").value
+    let nt = ""
+    for (let lettre of texte) {
+        let nl = ""
+        if (lettre=="a" || lettre=="A") {nl = "A"}
+        if (lettre=="d" || lettre=="D") {nl = "D"}
+        if (lettre=="g" || lettre=="G") {nl = "G"}
+        nt += nl
+    }
+    document.getElementById("saisie").value = nt
+}
+let liste_robots = function() {
+    let L = []
+    for (let i=0; i<P.length; i++) {
+        for (let j=0; j<P[0].length; j++) {
+            state = P[i][j]
+            if (state >= 1 && state<=4) {
+                L.push([[j,i],[j+dx[state],i+dy[state]]])
+            }
+        }
+    }
+    return L
+}
+let is_blocked = function(robot) {
+    let [xr,yr] = robot[0]
+    let [xd,yd] = robot[1]
+    if (P[yd][xd]==0 || P[yd][xd]==6) { 
+        let nbr = 0
+        for (let r of liste_robots()) {
+            if (r[1][0]==xd && r[1][1]==yd) {nbr += 1}
+        }
+        if (nbr==1) {return false}
+        else {return true}
+    }
+    else { 
+        return true
+        } 
+}
+let execinstr = function(lettre) {
+    let Q = []
+    for (let i=0; i<P.length; i++) {
+        Q.push([])
+        for (let j=0; j<P[0].length; j++) {
+            let oldstate = P[i][j]
+            if (oldstate >=5) {Q[i].push(oldstate)}
+            else {Q[i].push(0)}
+        }
+    }
+    if (lettre=="A") {
+        for (let robot of liste_robots()) {
+            let [xr,yr] = robot[0]
+            if (is_blocked(robot)) {
+                Q[yr][xr] = P[yr][xr]
+            }
+            else {
+                let [xd,yd] = robot[1]
+                let state = P[yr][xr]
+                if (P[yd][xd] != 6) {
+                Q[yd][xd] = state
+            }
+            else {
+                Q[yd][xd] = 6
+            }
+            }
+        }
+    }
+    if (lettre=="D") {
+        for (let i=0; i<P.length; i++) {
+            for (let j=0; j<P[0].length; j++) {
+                let state = P[i][j]
+                if (state>=1 && state<=4) {
+                    state -= 1
+                    if (state==0) {state=4}
+                }
+                Q[i][j] = state
+            }
+        }
+    }
+    if (lettre=="G") {
+        for (let i=0; i<P.length; i++) {
+            for (let j=0; j<P[0].length; j++) {
+                let state = P[i][j]
+                if (state>=1 && state<=4) {
+                    state += 1
+                    if (state==5) {state=1}
+                }
+                Q[i][j] = state
+            }
+        }
+    }
+    P = Q
+}
+let maj = function() {
+    cleanup()
+    P = M
+    let programme = document.getElementById("saisie").value
+    for (let instr of programme) {
+        execinstr(instr)
+    }
+    rendu(P.reverse())
+}
+
+
+</script>
+
+<p>Il est suffisamment petit pour qu'on puisse lister 
+les états possibles de la grille, numérotés de 0 à 4&nbsp;:</p>
+
+<table border="1">
+<tr><th>état 0</th><th>état 1</th><th>état 2</th><th>état 3</th><th>état 4</th></tr>
+<tr>
+<td>
+<table class="laby" border="1">
+<tr><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="v">▲</td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="S"></td><td class="X"></td></tr>
+</table>
+</td>
+<td>
+<table class="laby" border="1">
+<tr><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="v">▶</td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="S"></td><td class="X"></td></tr>
+</table>
+</td>
+<td>
+<table class="laby" border="1">
+<tr><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="v">◀</td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="S"></td><td class="X"></td></tr>
+</table>
+</td>
+<td>
+<table class="laby" border="1">
+<tr><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="v">▼</td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="S"></td><td class="X"></td></tr>
+</table>
+</td>
+<td>
+<table class="laby" border="1">
+<tr><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+<tr><td class="X"></td><td class="S"></td><td class="X"></td></tr>
+</table>
+</td>
+</tr></table>
+
+<p>L'état 4 est l'<em>état final</em>. Jouer consiste 
+à atteindre l'état final (celui où tous les robots 
+sont sortis de la grille). Or on constate que&nbsp;:</p>
+<ul>
+<li>Depuis l'état 0,
+<ul>
+    <li><code>A</code> fait rester dans l'état 0,</li>
+    <li><code>D</code> fait aller dans l'état 1,</li>
+    <li><code>G</code> fait aller dans l'état 2.</li>
+</ul>
+<svg width="99px" height="131px"
+ viewBox="0.00 0.00 99.00 131.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" transform="scale(1 1) rotate(0) translate(4 127)">
+<title>%3</title>
+<!--polygon fill="white" stroke="none" points="-4,4 -4,-127 95,-127 95,4 -4,4"/-->
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="45" cy="-105" rx="18" ry="18"/>
+<text text-anchor="middle" x="45" y="-101.3" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- 0&#45;&gt;0 -->
+<g id="edge1" class="edge"><title>0&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M61.6641,-112.383C71.625,-114.023 81,-111.562 81,-105 81,-100.796 77.1525,-98.2751 71.7682,-97.4375"/>
+<polygon fill="black" stroke="black" points="71.6002,-93.9399 61.6641,-97.6172 71.7247,-100.939 71.6002,-93.9399"/>
+<text text-anchor="middle" x="86" y="-101.3" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M39.7941,-87.6111C35.9842,-75.6169 30.7353,-59.0927 26.3434,-45.2662"/>
+<polygon fill="black" stroke="black" points="29.5531,-43.8097 23.1899,-35.3385 22.8816,-45.9289 29.5531,-43.8097"/>
+<text text-anchor="middle" x="39" y="-57.8" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2 -->
+<g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="72" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="72" y="-14.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0&#45;&gt;2 -->
+<g id="edge3" class="edge"><title>0&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M50.2059,-87.6111C54.0158,-75.6169 59.2647,-59.0927 63.6566,-45.2662"/>
+<polygon fill="black" stroke="black" points="67.1184,-45.9289 66.8101,-35.3385 60.4469,-43.8097 67.1184,-45.9289"/>
+<text text-anchor="middle" x="65" y="-57.8" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+</g>
+</svg>
+(dorénavant on ne dessinera plus les flèches étiquetées 
+<code>A</code> puisqu'elles sont sur chaque sommet du graphe)
+</li>
+<li>Depuis l'état 1,
+<ul>
+    <li><code>A</code> fait rester dans l'état 1,</li>
+    <li><code>D</code> fait aller dans l'état 3,</li>
+    <li><code>G</code> fait revenir à l'état 0.</li>
+</ul>
+<svg width="104px" height="218px"
+ viewBox="0.00 0.00 104.00 218.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" transform="scale(1 1) rotate(0) translate(4 214)">
+<title>%3</title>
+<!--polygon fill="white" stroke="none" points="-4,4 -4,-214 100,-214 100,4 -4,4"/-->
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="45" cy="-192" rx="18" ry="18"/>
+<text text-anchor="middle" x="45" y="-188.3" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-105" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-101.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge1" class="edge"><title>0&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M31.1973,-180.271C24.3182,-174.026 16.6949,-165.517 13,-156 10.1022,-148.536 9.92488,-139.997 10.8899,-132.113"/>
+<polygon fill="black" stroke="black" points="14.3336,-132.738 12.6837,-122.273 7.44706,-131.483 14.3336,-132.738"/>
+<text text-anchor="middle" x="18" y="-144.8" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2 -->
+<g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="78" cy="-105" rx="18" ry="18"/>
+<text text-anchor="middle" x="78" y="-101.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0&#45;&gt;2 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M51.207,-175.012C55.9546,-162.784 62.5951,-145.679 68.0773,-131.559"/>
+<polygon fill="black" stroke="black" points="71.4643,-132.505 71.8208,-121.916 64.9388,-129.972 71.4643,-132.505"/>
+<text text-anchor="middle" x="68" y="-144.8" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 1&#45;&gt;0 -->
+<g id="edge3" class="edge"><title>1&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M23.1899,-122.339C26.9958,-134.32 32.2439,-150.842 36.6382,-164.676"/>
+<polygon fill="black" stroke="black" points="33.4309,-166.14 39.7941,-174.611 40.1024,-164.021 33.4309,-166.14"/>
+<text text-anchor="middle" x="38" y="-144.8" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 3 -->
+<g id="node4" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="18" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge4" class="edge"><title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M18,-86.799C18,-75.1626 18,-59.5479 18,-46.2368"/>
+<polygon fill="black" stroke="black" points="21.5001,-46.1754 18,-36.1754 14.5001,-46.1755 21.5001,-46.1754"/>
+<text text-anchor="middle" x="23" y="-57.8" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>Depuis l'état 2,
+<ul>
+    <li><code>A</code> fait rester dans l'état 2,</li>
+    <li><code>D</code> fait revenir à l'état 0,</li>
+    <li><code>G</code> fait aller dans l'état 3.</li>
+</ul>
+<svg width="104px" height="218px"
+ viewBox="0.00 0.00 103.71 218.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" transform="scale(1 1) rotate(0) translate(4 214)">
+<title>%3</title>
+<!--polygon fill="white" stroke="none" points="-4,4 -4,-214 99.7127,-214 99.7127,4 -4,4"/-->
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="50.7127" cy="-192" rx="18" ry="18"/>
+<text text-anchor="middle" x="50.7127" y="-188.3" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="23.7127" cy="-105" rx="18" ry="18"/>
+<text text-anchor="middle" x="23.7127" y="-101.3" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge1" class="edge"><title>0&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M34.1088,-183.882C22.9987,-178.132 9.25677,-168.871 2.71272,-156 -1.95983,-146.81 1.20693,-136.334 6.36159,-127.353"/>
+<polygon fill="black" stroke="black" points="9.31501,-129.233 11.9622,-118.974 3.4953,-125.343 9.31501,-129.233"/>
+<text text-anchor="middle" x="7.71272" y="-144.8" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2 -->
+<g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="77.7127" cy="-105" rx="18" ry="18"/>
+<text text-anchor="middle" x="77.7127" y="-101.3" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0&#45;&gt;2 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M55.9186,-174.611C59.7285,-162.617 64.9774,-146.093 69.3694,-132.266"/>
+<polygon fill="black" stroke="black" points="72.8311,-132.929 72.5228,-122.339 66.1596,-130.81 72.8311,-132.929"/>
+<text text-anchor="middle" x="70.7127" y="-144.8" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 1&#45;&gt;0 -->
+<g id="edge3" class="edge"><title>1&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M28.9026,-122.339C32.7085,-134.32 37.9566,-150.842 42.3509,-164.676"/>
+<polygon fill="black" stroke="black" points="39.1436,-166.14 45.5069,-174.611 45.8151,-164.021 39.1436,-166.14"/>
+<text text-anchor="middle" x="43.7127" y="-144.8" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 3 -->
+<g id="node4" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="52.7127" cy="-18" rx="18" ry="18"/>
+<text text-anchor="middle" x="52.7127" y="-14.3" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge4" class="edge"><title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M29.3042,-87.6111C33.4365,-75.4993 39.1447,-58.7682 43.8898,-44.8603"/>
+<polygon fill="black" stroke="black" points="47.2218,-45.9331 47.1384,-35.3385 40.5968,-43.6727 47.2218,-45.9331"/>
+<text text-anchor="middle" x="44.7127" y="-57.8" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2&#45;&gt;0 -->
+<g id="edge5" class="edge"><title>2&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M80.9717,-123.135C82.1413,-133.013 82.3913,-145.513 78.7127,-156 76.8131,-161.415 73.6842,-166.615 70.1919,-171.275"/>
+<polygon fill="black" stroke="black" points="67.4496,-169.098 63.7004,-179.007 72.8108,-173.599 67.4496,-169.098"/>
+<text text-anchor="middle" x="85.7127" y="-144.8" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge6" class="edge"><title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M72.8925,-87.6111C69.3874,-75.6938 64.5669,-59.3043 60.5164,-45.5324"/>
+<polygon fill="black" stroke="black" points="63.783,-44.2346 57.6035,-35.6286 57.0674,-46.2098 63.783,-44.2346"/>
+<text text-anchor="middle" x="70.7127" y="-57.8" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>Depuis l'état 3,
+<ul>
+    <li><code>A</code> fait aller dans l'état 4 (final),</li>
+    <li><code>D</code> fait aller dans l'état 2,</li>
+    <li><code>G</code> fait aller dans l'état 1.</li>
+</ul>
+<svg width="174px" height="196px"
+ viewBox="0.00 0.00 173.50 195.60" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" transform="scale(1 1) rotate(0) translate(80.1145 108.391)">
+<title>%3</title>
+<!--polygon fill="white" stroke="none" points="-80.1145,87.2085 -80.1145,-108.391 93.3898,-108.391 93.3898,87.2085 -80.1145,87.2085"/-->
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="-53.6976" cy="65.2085" rx="18" ry="18"/>
+<text text-anchor="middle" x="-53.6976" y="68.9085" font-family="Times,serif" font-size="14.00">0</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="24.3397" cy="54.6743" rx="18" ry="18"/>
+<text text-anchor="middle" x="24.3397" y="58.3743" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge1" class="edge"><title>0&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M-37.5243,57.2954C-27.8169,54.899 -15.2002,52.9279 -3.89378,51.9517"/>
+<polygon fill="black" stroke="black" points="-3.78287,48.439 6.40727,51.3392 -3.36732,55.4267 -3.78287,48.439"/>
+<text text-anchor="middle" x="-25.709" y="50.8235" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2 -->
+<g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="-58.1145" cy="-13.3919" rx="18" ry="18"/>
+<text text-anchor="middle" x="-58.1145" y="-9.69187" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- 0&#45;&gt;2 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M-60.3255,48.472C-61.9576,38.6099 -62.9388,25.8814 -63.0304,14.5362"/>
+<polygon fill="black" stroke="black" points="-66.524,14.1543 -62.8378,4.22142 -59.5252,14.2851 -66.524,14.1543"/>
+<text text-anchor="middle" x="-66.6779" y="27.7041" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 1&#45;&gt;0 -->
+<g id="edge3" class="edge"><title>1&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M8.16642,62.5874C-1.54103,64.9838 -14.1576,66.9549 -25.4641,67.9311"/>
+<polygon fill="black" stroke="black" points="-25.575,71.4438 -35.7652,68.5436 -25.9906,64.4561 -25.575,71.4438"/>
+<text text-anchor="middle" x="-13.6488" y="61.4593" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 3 -->
+<g id="node4" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="20.0826" cy="-24.1001" rx="18" ry="18"/>
+<text text-anchor="middle" x="20.0826" y="-20.4001" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge4" class="edge"><title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M17.7458,37.8878C16.1059,27.8306 15.1456,14.8025 15.1072,3.2871"/>
+<polygon fill="black" stroke="black" points="11.6085,3.18238 15.338,-6.73434 18.6067,3.34365 11.6085,3.18238"/>
+<text text-anchor="middle" x="11.4265" y="16.7875" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2&#45;&gt;0 -->
+<g id="edge5" class="edge"><title>2&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M-51.4866,3.34465C-49.8545,13.2068 -48.8733,25.9353 -48.7817,37.2805"/>
+<polygon fill="black" stroke="black" points="-45.2881,37.6624 -48.9743,47.5952 -52.2869,37.5316 -45.2881,37.6624"/>
+<text text-anchor="middle" x="-55.1342" y="16.5126" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge6" class="edge"><title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M-41.9173,-21.3413C-32.0237,-23.8012 -19.112,-25.8276 -7.63312,-26.811"/>
+<polygon fill="black" stroke="black" points="-7.81111,-30.3065 2.37821,-27.4034 -7.39753,-23.3187 -7.81111,-30.3065"/>
+<text text-anchor="middle" x="-29.7752" y="-27.8761" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 3&#45;&gt;1 -->
+<g id="edge8" class="edge"><title>3&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M26.6765,-7.31363C28.3164,2.74356 29.2768,15.7717 29.3152,27.2871"/>
+<polygon fill="black" stroke="black" points="32.8138,27.3918 29.0843,37.3085 25.8156,27.2306 32.8138,27.3918"/>
+<text text-anchor="middle" x="22.9958" y="6.18674" font-family="Times,serif" font-size="14.00">G</text>
+</g>
+<!-- 3&#45;&gt;2 -->
+<g id="edge9" class="edge"><title>3&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M3.88542,-16.1506C-6.00819,-13.6908 -18.9199,-11.6644 -30.3988,-10.681"/>
+<polygon fill="black" stroke="black" points="-30.2208,-7.18546 -40.4101,-10.0885 -30.6343,-14.1732 -30.2208,-7.18546"/>
+<text text-anchor="middle" x="-18.2567" y="-17.2158" font-family="Times,serif" font-size="14.00">D</text>
+</g>
+<!-- 4 -->
+<g id="node5" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="67.3898" cy="-82.3909" rx="18" ry="18"/>
+<ellipse fill="none" stroke="black" cx="67.3898" cy="-82.3909" rx="22" ry="22"/>
+<text text-anchor="middle" x="67.3898" y="-78.6909" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- 3&#45;&gt;4 -->
+<g id="edge7" class="edge"><title>3&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M31.5344,-38.2106C36.1488,-43.8965 41.6165,-50.6336 46.8737,-57.1114"/>
+<polygon fill="black" stroke="black" points="44.3209,-59.5201 53.3401,-65.0792 49.7562,-55.109 44.3209,-59.5201"/>
+<text text-anchor="middle" x="34.204" y="-51.461" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>Depuis l'état 4, <code>A</code>, <code>D</code> 
+et <code>G</code> font rester dans l'état 4 (état final).
+</li>
+</ul>
+
+<p>Résoudre un <em>robosomes</em>, c'est trouver un 
+chemin dans le graphe ci-dessus, allant de l'état 
+initial 0 jusqu'à l'état final 4. Les lettres 
+étiquetant les arcs parcourus, forment alors 
+un mot gagnant (le programme). Comme l'automate a 
+un nombre fini (quoique parfois très grand) d'états, 
+le langage formé par les mots gagnants d'un 
+<em>robosomes</em> est 
+<a href="https://fr.wikipedia.org/wiki/Langage_rationnel">régulier</a>.</p>
+<p>L'ensemble des solutions d'un <em>robosomes</em> 
+peut être décrit par une 
+<a href="https://fr.wikipedia.org/wiki/Expression_régulière">expression régulière</a> 
+(ou <code>RegEx</code>). Pour le <em>robosomes</em> 
+ci-dessus, en posant <code>B = DA*D</code> et 
+<code>C = GA*G</code>, une Regex décrivant les 
+mots gagnants est <code>((B|C)(B|C))*(B|C)A</code>.</p>
+<p>Le fait qu'une solution d'un <em>robosomes</em> est 
+un chemin allant de l'état initial à un état final, 
+donne un algorithme pour un solveur de <em>robosomes</em>&nbsp;:</p>
+<ul>
+    <li>Construire l'automate (graphe orienté dont 
+    les arcs sont étiquetés par <code>A</code>, 
+    <code>D</code> ou <code>G</code>).</li>
+    <li>Partir, dans ce graphe, de l'état initial.</li>
+    <li>Effectuer un parcours en largeur d'abord de ce 
+    graphe.</li>
+    <li>S'arrêter dès qu'on est arrivé à un état final, 
+    ou que le parcours est terminé.</li>
+</ul>
+<p>Alors, si le parcours est terminé sans qu'on soit 
+arrivé à un état final, c'est que le <em>robosomes</em> 
+en question n'a pas de solution. Sinon, la suite des 
+lettres lues dans le parcours trouvé est une solution 
+du <em>robosomes</em>.</p>
+<p>Le fait qu'on ait effectué un parcours en largeur 
+garantit que, non seulement on trouve une solution 
+(s'il y en a une) mais en plus elle est la plus 
+courte possible.</p>
+
+</body>
+</html>

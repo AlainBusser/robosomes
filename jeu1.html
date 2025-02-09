@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Robosomes</title>
+<style>
+    .laby {border: 1px solid black; border-collapse: collapse;}
+    .laby td {width: 32px;height: 32px; border: 1px solid black;text-align:center; font-size: 120%;color:blue;}
+    .laby .v {background-color: lightyellow;}
+    .laby .X {background-color: brown;}
+    .laby .S {background-color: lightgreen;}
+    code {background-color: black; color: lightgreen; font-family: Arial;}
+    #saisie {background-color: black; color: lightyellow; width: 40em; }
+</style>
+<!--◀▲▶▼-->
+</head>
+<body>
+<h1>Jeu 1</h1>
+<table id="plateau" class="laby" border="1"></table>
+<p>Entrer ci-dessus le programme à appliquer aux robots 
+(suite de lettres <code>A</code>, <code>D</code> ou 
+<code>G</code>)&nbsp;:</p>
+<input id="saisie" onkeyup="maj()"></input>
+<script>
+const M = [
+[5,5,5,5,5,5,5,5],
+[5,0,3,3,0,1,1,5],
+[5,0,0,5,0,0,0,5],
+[5,3,0,2,0,4,0,5],
+[5,0,0,0,0,1,0,5],
+[5,5,6,5,5,5,5,5]
+]
+P = M
+const fleches = ["","▶","▲","◀","▼","",""]
+const dx = [0,1,0,-1,0]
+const dy = [0,0,1,0,-1]
+let rendu = function(tab) {
+    let t = document.getElementById("plateau")
+    t.innerHTML=""
+    for (let ligne of tab.reverse()) {
+        trow = t.insertRow(0)
+        for (let elt of ligne) {
+            tcell = trow.insertCell()
+            texte = document.createTextNode(fleches[elt])
+            if (elt<=4) {
+                tcell.className = "v"
+            }
+            else {
+                if (elt==5) {
+                    tcell.className = "X"
+                }
+                else {
+                    tcell.className = "S"
+                }
+            }
+            tcell.appendChild(texte)
+        }
+    }
+}
+
+rendu(P)
+let cleanup = function(){
+    texte = document.getElementById("saisie").value
+    let nt = ""
+    for (let lettre of texte) {
+        let nl = ""
+        if (lettre=="a" || lettre=="A") {nl = "A"}
+        if (lettre=="d" || lettre=="D") {nl = "D"}
+        if (lettre=="g" || lettre=="G") {nl = "G"}
+        nt += nl
+    }
+    document.getElementById("saisie").value = nt
+}
+let liste_robots = function() {
+    let L = []
+    for (let i=0; i<P.length; i++) {
+        for (let j=0; j<P[0].length; j++) {
+            state = P[i][j]
+            if (state >= 1 && state<=4) {
+                L.push([[j,i],[j+dx[state],i+dy[state]]])
+            }
+        }
+    }
+    return L
+}
+let is_blocked = function(robot) {
+    let [xr,yr] = robot[0]
+    let [xd,yd] = robot[1]
+    if (P[yd][xd]==0 || P[yd][xd]==6) { 
+        let nbr = 0
+        for (let r of liste_robots()) {
+            if (r[1][0]==xd && r[1][1]==yd) {nbr += 1}
+        }
+        if (nbr==1) {return false}
+        else {return true}
+    }
+    else { 
+        if (P[yd][xd]==5) {return true}
+        else {
+        let robot_devant = [[xd,yd]]
+        let state = P[yd][xd]
+        let nx = xd+dx[state]
+        let ny = yd+dy[state]
+        if (nx==xr && ny==yr) { return true }
+        robot_devant.push([nx,ny])
+        return is_blocked(robot_devant)
+    }
+        } 
+}
+let execinstr = function(lettre) {
+    let Q = []
+    for (let i=0; i<P.length; i++) {
+        Q.push([])
+        for (let j=0; j<P[0].length; j++) {
+            let oldstate = P[i][j]
+            if (oldstate >=5) {Q[i].push(oldstate)}
+            else {Q[i].push(0)}
+        }
+    }
+    if (lettre=="A") {
+        for (let robot of liste_robots()) {
+            let [xr,yr] = robot[0]
+            if (is_blocked(robot)) {
+                Q[yr][xr] = P[yr][xr]
+            }
+            else {
+                let [xd,yd] = robot[1]
+                let state = P[yr][xr]
+                if (P[yd][xd] != 6) {
+                Q[yd][xd] = state
+            }
+            else {
+                Q[yd][xd] = 6
+            }
+            }
+        }
+    }
+    if (lettre=="D") {
+        for (let i=0; i<P.length; i++) {
+            for (let j=0; j<P[0].length; j++) {
+                let state = P[i][j]
+                if (state>=1 && state<=4) {
+                    state -= 1
+                    if (state==0) {state=4}
+                }
+                Q[i][j] = state
+            }
+        }
+    }
+    if (lettre=="G") {
+        for (let i=0; i<P.length; i++) {
+            for (let j=0; j<P[0].length; j++) {
+                let state = P[i][j]
+                if (state>=1 && state<=4) {
+                    state += 1
+                    if (state==5) {state=1}
+                }
+                Q[i][j] = state
+            }
+        }
+    }
+    P = Q
+}
+let maj = function() {
+    cleanup()
+    P = M
+    let programme = document.getElementById("saisie").value
+    for (let instr of programme) {
+        execinstr(instr)
+    }
+    rendu(P.reverse())
+}
+
+
+</script>
+</body>
+</html>

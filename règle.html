@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Robosomes</title>
+<style>
+    .laby {border: 1px solid black; border-collapse: collapse;}
+    .laby td {width: 32px;height: 32px; border: 1px solid black;text-align:center; font-size: 120%;color:blue;}
+    .laby .v {background-color: lightyellow;}
+    .laby .X {background-color: brown;}
+    .laby .S {background-color: lightgreen;}
+    code {background-color: black; color: lightgreen; font-family: Arial;}
+</style>
+<!--◀▲▶▼-->
+</head>
+<body>
+<h1>Exemple</h1>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v">◀</td>
+    <td class="v"></td><td class="v">▶</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v">▲</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▼</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Les commandes envoyées aux robots (tous en même 
+temps) sont dans l'alphabet <code>{A,D,G}</code>.</p>
+<h2>A</h2>
+
+<p>Un robot qui a un obstacle fixe devant lui ne peut 
+pas avancer&nbsp;: il est bloqué. Un robot qui a un 
+robot bloqué devant lui ne peut pas non plus avancer&nbsp;: 
+il est également bloqué.</p>
+
+<table>
+    <tr><th>avant</th><th>après</th></tr>
+    <tr><td>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v">◀</td>
+    <td class="v"></td><td class="v">▶</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v">▲</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▼</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+
+</td><td>
+
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v">◀</td><td class="v"></td>
+    <td class="v"></td><td class="v">▶</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v">▲</td>
+    <td class="v"></td><td class="v">▼</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▶</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+</td></tr></table>
+
+<h2>D</h2>
+<table>
+    <tr><th>avant</th><th>après</th></tr>
+    <tr><td>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v">◀</td>
+    <td class="v"></td><td class="v">▶</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v">▲</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▼</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+
+</td><td>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▲</td><td class="v">▲</td>
+    <td class="v"></td><td class="v">▼</td><td class="v">▼</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">▲</td><td class="v"></td><td class="v">▶</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">◀</td><td class="v">▼</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+</td></tr></table>
+
+
+<h2>G</h2>
+<p>Un robot tourne sur place, rien ne peut donc 
+l'empêcher de tourner vers sa droite.</p>
+<table>
+    <tr><th>avant</th><th>après</th></tr>
+    <tr><td>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v">◀</td>
+    <td class="v"></td><td class="v">▶</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v">▲</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▼</td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+
+</td><td>
+
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v">▼</td>
+    <td class="v"></td><td class="v">▲</td><td class="v">▲</td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="X"></td>
+    <td class="v"></td><td class="X"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v">◀</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▶</td><td class="v">▲</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+</td></tr></table>
+
+
+</body>
+</html>

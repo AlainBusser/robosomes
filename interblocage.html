@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Robosomes</title>
+<style>
+    .laby {border: 1px solid black; border-collapse: collapse;}
+    .laby td {width: 32px;height: 32px; border: 1px solid black;text-align:center; font-size: 120%;color:blue;}
+    .laby .v {background-color: lightyellow;}
+    .laby .X {background-color: brown;}
+    .laby .S {background-color: lightgreen;}
+    code {background-color: black; color: lightgreen; font-family: Arial;}
+</style>
+<!--◀▲▶▼-->
+</head>
+<body>
+<h1 title="©Coffman">Interblocage</h1>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▶</td>
+    <td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▲</td>
+    <td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+
+<h2>A</h2>
+<p>Chaque robot est bloqué par celui qui est devant lui. 
+Il y a <em>interblocage</em>. On dit que ce niveau de 
+<em>robosomes</em> est un <em>point fixe</em> de 
+<code>A</code>.</p>
+
+<h2>D</h2>
+<p><code>D</code> donne un autre point fixe de <code>A</code>.</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▼</td>
+    <td class="v">◀</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▶</td>
+    <td class="v">▲</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+
+<h2>G</h2>
+<p>La solution de ce niveau de <em>robosomes</em> 
+commence donc par <code>G</code></p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▲</td>
+    <td class="v">▶</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">◀</td>
+    <td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Plus aucun des robots n'est (pour l'instant) bloqué. 
+Après <code>GA</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">▲</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▶</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">◀</td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v">▼</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Deux robots sont bloqués maintenant mais pas 
+les deux autres. Après un bon <code>GAG</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">◀</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▲</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v">▶</td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAA</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▲</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v">▶</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADD</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">▶</td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▼</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v">◀</td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDA</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▶</td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▼</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">◀</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDAD</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">◀</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▲</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDADAAAAA</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v">▲</td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDADAAAAAGAA</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">◀</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">▼</td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDADAAAAAGAAGAD</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v">◀</td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v">▼</td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDADAAAAAGAAGADAA</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">◀</td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p>Après <code>GAGAAADDADAAAAAGAAGADAAGAAG</code>&nbsp;:</p>
+<table class="laby">
+    <tr><td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v"></td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"><td class="v">▶</td><td class="v"></td><td class="v"></td>
+    <td class="v"></td><td class="v"></td><td class="v"></td><td class="X"></td></tr>
+    <tr><td class="X"></td><td class="X"></td><td class="S"></td><td class="X"></td>
+    <td class="X"></td><td class="X"></td><td class="X"></td><td class="X"></td></tr>
+</table>
+<p><code>GAGAAADDADAAAAAGAAGADAAGAAGADAA</code> est 
+donc une solution à ce niveau de <em>robosomes</em>.</p>
+
+
+
+
+
+
+</body>
+</html>
